@@ -1,1 +1,75 @@
-[]
+[
+    {
+        "id": "b1c70c867053924d",
+        "type": "tab",
+        "label": "Test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f21d84ec3e993b7e",
+        "type": "inject",
+        "z": "b1c70c867053924d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "1df737d258c07954"
+            ]
+        ]
+    },
+    {
+        "id": "1df737d258c07954",
+        "type": "function",
+        "z": "b1c70c867053924d",
+        "name": "test",
+        "func": "msg.test=\"test\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "ec96d04d58727075"
+            ]
+        ]
+    },
+    {
+        "id": "ec96d04d58727075",
+        "type": "debug",
+        "z": "b1c70c867053924d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 120,
+        "wires": []
+    }
+]
