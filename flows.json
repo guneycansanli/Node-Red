@@ -74,8 +74,7 @@
         "wires": [
             [
                 "a2119fbad1888896",
-                "8e8e2e241b51bdec",
-                "36749ad5fc0a236b"
+                "8e8e2e241b51bdec"
             ]
         ]
     },
@@ -89,8 +88,8 @@
         "tls": true,
         "name": "",
         "dname": "",
-        "x": 590,
-        "y": 280,
+        "x": 670,
+        "y": 260,
         "wires": []
     },
     {
@@ -98,14 +97,14 @@
         "type": "function",
         "z": "b1c70c867053924d",
         "name": "set e-mail",
-        "func": "\n//e-mail subject\nmsg.topic = \"APİ\"\n//e-mmail body\nmsg.payload = \"<h1>test</h1>\"+msg.payload.url+\"\";\n//\nmsg.to = \"guneycansanli@gmail.com\";\n\nreturn msg;",
+        "func": "var body = msg.payload.body;\nmsg\n//e-mail subject\nmsg.topic = \"APİ\"\n//\nmsg.to = \"guneycansanli@gmail.com\";\n//e-mmail body\nmsg.payload = body;\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 440,
-        "y": 280,
+        "y": 260,
         "wires": [
             [
                 "6495871bcfa5fc5f",
@@ -126,8 +125,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 710,
-        "y": 80,
+        "x": 770,
+        "y": 120,
         "wires": []
     },
     {
@@ -135,16 +134,18 @@
         "type": "template",
         "z": "b1c70c867053924d",
         "name": "set e-mail template",
-        "field": "payload",
+        "field": "payload.body",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "\n<div>\n    <p>etstest</p>\n<img src=\"html5.gif\" alt=\"HTML5 Icon\" width=\"128\" height=\"128\">\n\n</div> ",
+        "template": " <!DOCTYPE html>\n<html>\n<head>\n<style>\nimg {\n  width: 100%;\n}\n</style>\n</head>\n<body>\n    <h1>Today's space photo</h1>\n    <h2>{{url}}</h2>\n\n<img src=\"{{url}}\" alt=\"{{title}}\" >\n\n\n</body>\n</html> \n",
         "output": "str",
-        "x": 170,
-        "y": 280,
+        "x": 230,
+        "y": 260,
         "wires": [
-            []
+            [
+                "36749ad5fc0a236b"
+            ]
         ]
     },
     {
@@ -160,8 +161,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 510,
-        "y": 380,
+        "x": 690,
+        "y": 340,
         "wires": []
     },
     {
@@ -169,45 +170,17 @@
         "type": "function",
         "z": "b1c70c867053924d",
         "name": "set request",
-        "func": "\nvar urll = msg.payload.url;\nvar titlee = msg.payload.title;\nmsg.payload = \"\";\nmsg.payload.urll = urll;\nreturn msg;",
+        "func": "\nvar urll = msg.payload.url;\nvar titlee = msg.payload.title;\n\nreturn msg.payload;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 750,
+        "x": 790,
         "y": 180,
         "wires": [
             [
-                "2cb9727ef1501572"
-            ]
-        ]
-    },
-    {
-        "id": "2e06229d6e05c89d",
-        "type": "inject",
-        "z": "b1c70c867053924d",
-        "name": "Test NASA Authentication",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 380,
-        "wires": [
-            [
+                "2cb9727ef1501572",
                 "f7be9fc05d3fb9ab"
             ]
         ]
@@ -225,8 +198,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 903,
-        "y": 100,
+        "x": 1010,
+        "y": 120,
         "wires": []
     }
 ]
