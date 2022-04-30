@@ -2,7 +2,7 @@
     {
         "id": "b1c70c867053924d",
         "type": "tab",
-        "label": "Test",
+        "label": "NASA API",
         "disabled": false,
         "info": "",
         "env": []
@@ -11,7 +11,7 @@
         "id": "f21d84ec3e993b7e",
         "type": "inject",
         "z": "b1c70c867053924d",
-        "name": "",
+        "name": "Test NASA Authentication",
         "props": [
             {
                 "p": "payload"
@@ -28,8 +28,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 120,
+        "x": 150,
+        "y": 180,
         "wires": [
             [
                 "1df737d258c07954"
@@ -40,23 +40,81 @@
         "id": "1df737d258c07954",
         "type": "function",
         "z": "b1c70c867053924d",
-        "name": "test",
-        "func": "msg.test=\"test\";\n\nreturn msg;",
+        "name": "set request",
+        "func": "\nvar token = \"2VgiIHYE8WtWHVrfjmqcVXB3HbWKUtf1bP9lbh1l\"\nmsg.url=\"https://api.nasa.gov/planetary/apod?api_key=\"+token+\"\";\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 120,
+        "x": 370,
+        "y": 180,
         "wires": [
             [
-                "ec96d04d58727075"
+                "fdbce3c1d65929c5"
             ]
         ]
     },
     {
-        "id": "ec96d04d58727075",
+        "id": "fdbce3c1d65929c5",
+        "type": "http request",
+        "z": "b1c70c867053924d",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 550,
+        "y": 180,
+        "wires": [
+            [
+                "a2119fbad1888896",
+                "8e8e2e241b51bdec",
+                "36749ad5fc0a236b"
+            ]
+        ]
+    },
+    {
+        "id": "6495871bcfa5fc5f",
+        "type": "e-mail",
+        "z": "b1c70c867053924d",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "",
+        "dname": "",
+        "x": 590,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "36749ad5fc0a236b",
+        "type": "function",
+        "z": "b1c70c867053924d",
+        "name": "set e-mail",
+        "func": "\n//e-mail subject\nmsg.topic = \"APİ\"\n//e-mmail body\nmsg.payload = \"<h1>test</h1>\"+msg.payload.url+\"\";\n//\nmsg.to = \"guneycansanli@gmail.com\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 280,
+        "wires": [
+            [
+                "6495871bcfa5fc5f",
+                "57ef58672915024c"
+            ]
+        ]
+    },
+    {
+        "id": "a2119fbad1888896",
         "type": "debug",
         "z": "b1c70c867053924d",
         "name": "",
@@ -68,8 +126,107 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 450,
-        "y": 120,
+        "x": 710,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "f7be9fc05d3fb9ab",
+        "type": "template",
+        "z": "b1c70c867053924d",
+        "name": "set e-mail template",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "\n<div>\n    <p>etstest</p>\n<img src=\"html5.gif\" alt=\"HTML5 Icon\" width=\"128\" height=\"128\">\n\n</div> ",
+        "output": "str",
+        "x": 170,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "57ef58672915024c",
+        "type": "debug",
+        "z": "b1c70c867053924d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "8e8e2e241b51bdec",
+        "type": "function",
+        "z": "b1c70c867053924d",
+        "name": "set request",
+        "func": "\nvar urll = msg.payload.url;\nvar titlee = msg.payload.title;\nmsg.payload = \"\";\nmsg.payload.urll = urll;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 180,
+        "wires": [
+            [
+                "2cb9727ef1501572"
+            ]
+        ]
+    },
+    {
+        "id": "2e06229d6e05c89d",
+        "type": "inject",
+        "z": "b1c70c867053924d",
+        "name": "Test NASA Authentication",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "f7be9fc05d3fb9ab"
+            ]
+        ]
+    },
+    {
+        "id": "2cb9727ef1501572",
+        "type": "debug",
+        "z": "b1c70c867053924d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 903,
+        "y": 100,
         "wires": []
     }
 ]
